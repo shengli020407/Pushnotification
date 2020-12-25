@@ -19,12 +19,13 @@ import com.example.pushinformation.bean.HomeFragmentBean;
 
 import java.util.ArrayList;
 
-public class HomebrandAdapter extends DelegateAdapter.Adapter{
+public class HomefirstpublishAdapter extends DelegateAdapter.Adapter{
+
     private Context context;
-    private ArrayList<HomeFragmentBean.DataDTO.BrandListDTO> list;
+    private ArrayList<HomeFragmentBean.DataDTO.NewGoodsListDTO> list;
     private GridLayoutHelper layoutHelper;
 
-    public HomebrandAdapter(Context context, ArrayList<HomeFragmentBean.DataDTO.BrandListDTO> list, GridLayoutHelper layoutHelper) {
+    public HomefirstpublishAdapter(Context context, ArrayList<HomeFragmentBean.DataDTO.NewGoodsListDTO> list, GridLayoutHelper layoutHelper) {
         this.context = context;
         this.list = list;
         this.layoutHelper = layoutHelper;
@@ -38,16 +39,16 @@ public class HomebrandAdapter extends DelegateAdapter.Adapter{
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_brand_home, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_firstpublish_home,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        HomebrandAdapter.ViewHolder viewHolder= (HomebrandAdapter.ViewHolder) holder;
-        viewHolder.tv_name_brand.setText(list.get(position).getName());
-        viewHolder.tv_price_brand.setText(list.get(position).getFloor_price());
-        Glide.with(context).load(list.get(position).getNew_pic_url()).into(viewHolder.iv_brand);
+        HomefirstpublishAdapter.ViewHolder viewHolder= (HomefirstpublishAdapter.ViewHolder) holder;
+        viewHolder.tv_name_firstpublish.setText(list.get(position).getName());
+        viewHolder.tv_price_firstpublish.setText(list.get(position).getRetail_price());
+        Glide.with(context).load(list.get(position).getList_pic_url()).into(viewHolder.iv_firstpublish);
     }
 
     @Override
@@ -55,15 +56,15 @@ public class HomebrandAdapter extends DelegateAdapter.Adapter{
         return list.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView iv_brand;
-        private TextView tv_name_brand;
-        private TextView tv_price_brand;
+        private ImageView iv_firstpublish;
+        private TextView tv_name_firstpublish;
+        private TextView tv_price_firstpublish;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            iv_brand = itemView.findViewById(R.id.iv_brand);
-            tv_name_brand = itemView.findViewById(R.id.tv_name_brand);
-            tv_price_brand = itemView.findViewById(R.id.tv_price_brand);
+            iv_firstpublish = itemView.findViewById(R.id.iv_firstpublish);
+            tv_name_firstpublish = itemView.findViewById(R.id.tv_name_firstpublish);
+            tv_price_firstpublish = itemView.findViewById(R.id.tv_price_firstpublish);
         }
     }
 }
