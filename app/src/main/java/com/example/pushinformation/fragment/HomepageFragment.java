@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements HomeFragmentContract.HomeView {
 
     private RecyclerView rcy_home;
-    private ArrayList<HomeFragmentBean.DataDTO> list;
+    private ArrayList<HomeFragmentBean.DataDTO.BannerDTO> list;
     private HomeFragmentAdapter homeFragmentAdapter;
     private DelegateAdapter adapter;
 
@@ -65,11 +66,12 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
 
     @Override
     public void onSuccess(HomeFragmentBean bean) {
-
+        list.addAll(bean.getData().getBanner());
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onFail(String error) {
-
+        Toast.makeText(getContext(), error , Toast.LENGTH_SHORT).show();
     }
 }

@@ -62,7 +62,7 @@ public class HomeFragmentAdapter extends DelegateAdapter.Adapter {
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return 1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

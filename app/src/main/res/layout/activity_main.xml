@@ -48,6 +48,7 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:gravity="center"
+            android:id="@+id/redio_home"
             android:drawableTop="@drawable/box_home_style"
             android:textColor="@drawable/box_name_style"
             android:layout_height="wrap_content"/>
@@ -58,6 +59,7 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:gravity="center"
+            android:id="@+id/redio_file"
             android:drawableTop="@drawable/box_file_style"
             android:textColor="@drawable/box_name_style"
             android:layout_height="wrap_content"/>
@@ -68,6 +70,7 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:gravity="center"
+            android:id="@+id/redio_classify"
             android:drawableTop="@drawable/box_classify_style"
             android:textColor="@drawable/box_name_style"
             android:layout_height="wrap_content"/>
@@ -78,6 +81,7 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:gravity="center"
+            android:id="@+id/redio_shoping"
             android:drawableTop="@drawable/box_shoping_style"
             android:textColor="@drawable/box_name_style"
             android:layout_height="wrap_content"/>
@@ -88,6 +92,7 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:gravity="center"
+            android:id="@+id/redio_person"
             android:drawableTop="@drawable/box_person_style"
             android:textColor="@drawable/box_name_style"
             android:layout_height="wrap_content"/>
