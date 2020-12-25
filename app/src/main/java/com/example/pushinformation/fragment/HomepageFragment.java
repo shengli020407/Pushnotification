@@ -17,6 +17,7 @@ import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
+import com.example.pushinformation.HomerecommendAdapter;
 import com.example.pushinformation.R;
 import com.example.pushinformation.adapter.HomeFragmentAdapter;
 import com.example.pushinformation.adapter.HomeGridAdapter;
@@ -42,6 +43,8 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
     private HomebrandAdapter homebrandAdapter;
     private ArrayList<HomeFragmentBean.DataDTO.NewGoodsListDTO> newGoodsListDTOS;
     private HomefirstpublishAdapter homefirstpublishAdapter;
+    private ArrayList<HomeFragmentBean.DataDTO.HotGoodsListDTO> hotGoodsListDTOS;
+    private HomerecommendAdapter homerecommendAdapter;
 
     protected void initView(View view) {
         rcy_home = view.findViewById(R.id.rcy_home);
@@ -49,11 +52,13 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         channelDTOS = new ArrayList<>();
         brandListDTOS = new ArrayList<>();
         newGoodsListDTOS = new ArrayList<>();
-        //轮播图
+        hotGoodsListDTOS = new ArrayList<>();
+
         VirtualLayoutManager virtualLayoutManager = new VirtualLayoutManager(getContext());
         RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
         rcy_home.setRecycledViewPool(viewPool);
-        viewPool.setMaxRecycledViews(0, 50);
+        viewPool.setMaxRecycledViews(0, 100);
+        //轮播图
         SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
         singleLayoutHelper.setItemCount(1);
         //轮播图下边的
@@ -77,23 +82,26 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         firstpublishgridLayoutHelper.setItemCount(4);
         firstpublishgridLayoutHelper.setMargin(30,0,30,30);
         firstpublishgridLayoutHelper.setSpanCount(2);
+        //人气推荐
+        GridLayoutHelper recommendhelper = new GridLayoutHelper(4);
+        recommendhelper.setItemCount(4);
+        recommendhelper.setMargin(30,0,30,30);
+        recommendhelper.setSpanCount(1);
 
         homeFragmentAdapter = new HomeFragmentAdapter(getContext(), singleLayoutHelper, bannerDTOS);
         homeGridAdapter = new HomeGridAdapter(getContext(), channelDTOS, gridLayoutHelper);
         homebrandAdapter = new HomebrandAdapter(getContext(), brandListDTOS, helper);
         homefirstpublishAdapter = new HomefirstpublishAdapter(getContext(), newGoodsListDTOS, firstpublishgridLayoutHelper);
+        homerecommendAdapter = new HomerecommendAdapter(getContext(), hotGoodsListDTOS, recommendhelper);
         adapter = new DelegateAdapter(virtualLayoutManager, true);
         adapter.addAdapter(homeFragmentAdapter);
         adapter.addAdapter(homeGridAdapter);
         adapter.addAdapter(homebrandAdapter);
         adapter.addAdapter(homefirstpublishAdapter);
+        adapter.addAdapter(homerecommendAdapter);
         rcy_home.setLayoutManager(virtualLayoutManager);
         rcy_home.setAdapter(adapter);
-        //人气推荐
-        GridLayoutHelper recommendhelper = new GridLayoutHelper(3);
-        recommendhelper.setItemCount(4);
-        recommendhelper.setMargin(10,0,10,10);
-        recommendhelper.setSpanCount(1);
+
     }
 
     @Override
@@ -118,10 +126,12 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         channelDTOS.addAll(bean.getData().getChannel());
         brandListDTOS.addAll(bean.getData().getBrandList());
         newGoodsListDTOS.addAll(bean.getData().getNewGoodsList());
+        hotGoodsListDTOS.addAll(bean.getData().getHotGoodsList());
         homeFragmentAdapter.notifyDataSetChanged();
         homeGridAdapter.notifyDataSetChanged();
         homebrandAdapter.notifyDataSetChanged();
         homefirstpublishAdapter.notifyDataSetChanged();
+        homerecommendAdapter.notifyDataSetChanged();
     }
 
     @Override
