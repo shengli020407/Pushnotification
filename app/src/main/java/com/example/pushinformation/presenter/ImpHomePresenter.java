@@ -12,7 +12,7 @@ public class ImpHomePresenter extends BasePresenter<HomeFragmentContract.HomeVie
 
     @Override
     public void HomePresenter() {
-        iModel.HomeModel(Urlconstant.HomeUrl, new ImpCallBack<HomeFragmentBean>() {
+        iModel.HomeModel(Urlconstant.getHomeUrl, new ImpCallBack<HomeFragmentBean>() {
             @Override
             public void onSuccess(HomeFragmentBean bean) {
                 iView.onSuccess(bean);

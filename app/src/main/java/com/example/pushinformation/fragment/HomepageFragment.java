@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,20 +34,22 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
     protected void initView(View view) {
         rcy_home = view.findViewById(R.id.rcy_home);
         list = new ArrayList<>();
-
         VirtualLayoutManager virtualLayoutManager = new VirtualLayoutManager(getContext());
         RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
         rcy_home.setRecycledViewPool(viewPool);
-        viewPool.setMaxRecycledViews(0,20);
-
+        viewPool.setMaxRecycledViews(0, 20);
         SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
         singleLayoutHelper.setItemCount(1);
-        homeFragmentAdapter = new HomeFragmentAdapter(getContext(), singleLayoutHelper);
-
+        homeFragmentAdapter = new HomeFragmentAdapter(getContext(), singleLayoutHelper, list);
         adapter = new DelegateAdapter(virtualLayoutManager, true);
         adapter.addAdapter(homeFragmentAdapter);
         rcy_home.setLayoutManager(virtualLayoutManager);
         rcy_home.setAdapter(adapter);
+    }
+
+    @Override
+    protected ImpHomePresenter getPresenter() {
+        return new ImpHomePresenter();
     }
 
     @Override
@@ -59,19 +62,16 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         return R.layout.fragment_homepage;
     }
 
-    @Override
-    protected ImpHomePresenter getPresenter() {
-        return new ImpHomePresenter();
-    }
 
     @Override
     public void onSuccess(HomeFragmentBean bean) {
+        Log.e("TAG", "onSuccess: " + bean.getData().getBanner().get(0).getImage_url());
         list.addAll(bean.getData().getBanner());
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onFail(String error) {
-        Toast.makeText(getContext(), error , Toast.LENGTH_SHORT).show();
+        Log.e("TAG", "onFail: " + error);
     }
 }

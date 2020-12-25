@@ -24,11 +24,12 @@ import java.util.ArrayList;
 public class HomeFragmentAdapter extends DelegateAdapter.Adapter {
     private Context context;
     private SingleLayoutHelper layoutHelper;
-    private ArrayList<String> list;
+    private ArrayList<HomeFragmentBean.DataDTO.BannerDTO> list;
 
-    public HomeFragmentAdapter(Context context, SingleLayoutHelper layoutHelper) {
+    public HomeFragmentAdapter(Context context, SingleLayoutHelper layoutHelper, ArrayList<HomeFragmentBean.DataDTO.BannerDTO> list) {
         this.context = context;
         this.layoutHelper = layoutHelper;
+        this.list = list;
     }
 
     @Override
@@ -46,16 +47,11 @@ public class HomeFragmentAdapter extends DelegateAdapter.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         HomeFragmentAdapter.ViewHolder viewHolder= (HomeFragmentAdapter.ViewHolder) holder;
-        list = new ArrayList<>();
-        list.add("http://yanxuan.nosdn.127.net/65091eebc48899298171c2eb6696fe27.jpg");
-        list.add("http://yanxuan.nosdn.127.net/bff2e49136fcef1fd829f5036e07f116.jpg");
-        list.add("http://yanxuan.nosdn.127.net/8e50c65fda145e6dd1bf4fb7ee0fcecc.jpg");
-        viewHolder.ban_home.setImages(list)
-                .setImageLoader(new ImageLoader() {
+        viewHolder.ban_home.setImages(list).setImageLoader(new ImageLoader() {
                     @Override
                     public void displayImage(Context context, Object path, ImageView imageView) {
-                        HomeFragmentBean.DataDTO dataDTO= (HomeFragmentBean.DataDTO) path;
-                        Glide.with(context).load(dataDTO.getBanner()).into(imageView);
+                        HomeFragmentBean.DataDTO.BannerDTO dataDTO= (HomeFragmentBean.DataDTO.BannerDTO) path;
+                        Glide.with(context).load(dataDTO.getImage_url()).into(imageView);
                     }
                 }).start();
     }
