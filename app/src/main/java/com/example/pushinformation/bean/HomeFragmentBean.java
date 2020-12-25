@@ -4,11 +4,6 @@ import java.util.List;
 
 public class HomeFragmentBean {
 
-    /**
-     * errno : 0
-     * errmsg :
-     */
-
     private Integer errno;
     private String errmsg;
     private DataDTO data;
@@ -125,6 +120,21 @@ public class HomeFragmentBean {
             private Integer end_time;
             private Integer enabled;
 
+            @Override
+            public String toString() {
+                return "BannerDTO{" +
+                        "id=" + id +
+                        ", ad_position_id=" + ad_position_id +
+                        ", media_type=" + media_type +
+                        ", name='" + name + '\'' +
+                        ", link='" + link + '\'' +
+                        ", image_url='" + image_url + '\'' +
+                        ", content='" + content + '\'' +
+                        ", end_time=" + end_time +
+                        ", enabled=" + enabled +
+                        '}';
+            }
+
             public Integer getId() {
                 return id;
             }
@@ -199,6 +209,17 @@ public class HomeFragmentBean {
         }
 
         public static class ChannelDTO {
+            @Override
+            public String toString() {
+                return "ChannelDTO{" +
+                        "id=" + id +
+                        ", name='" + name + '\'' +
+                        ", url='" + url + '\'' +
+                        ", icon_url='" + icon_url + '\'' +
+                        ", sort_order=" + sort_order +
+                        '}';
+            }
+
             /**
              * id : 1
              * name : 居家
@@ -312,7 +333,7 @@ public class HomeFragmentBean {
             private Integer id;
             private String name;
             private String list_pic_url;
-            private String retail_price;
+            private Integer retail_price;
             private String goods_brief;
 
             public Integer getId() {
@@ -339,11 +360,11 @@ public class HomeFragmentBean {
                 this.list_pic_url = list_pic_url;
             }
 
-            public String getRetail_price() {
+            public Integer getRetail_price() {
                 return retail_price;
             }
 
-            public void setRetail_price(String retail_price) {
+            public void setRetail_price(Integer retail_price) {
                 this.retail_price = retail_price;
             }
 
@@ -579,12 +600,12 @@ public class HomeFragmentBean {
                 this.topic_category_id = topic_category_id;
             }
 
-            public String getPrice_info() {
-                return price_info;
-            }
-
             public void setPrice_info(String price_info) {
                 this.price_info = price_info;
+            }
+
+            public String getPrice_info() {
+                return price_info;
             }
 
             public String getRead_count() {
