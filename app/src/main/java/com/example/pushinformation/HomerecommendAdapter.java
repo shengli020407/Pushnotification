@@ -44,17 +44,18 @@ public class HomerecommendAdapter extends DelegateAdapter.Adapter{
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        HomerecommendAdapter.ViewHolder viewHolder= (ViewHolder) holder;
+        HomerecommendAdapter.ViewHolder viewHolder= (HomerecommendAdapter.ViewHolder) holder;
         viewHolder.tv_name_recommend.setText(list.get(position).getName());
         viewHolder.tv_goods_brief_recommend.setText(list.get(position).getGoods_brief());
-        viewHolder.tv_price_recommend.setText(list.get(position).getRetail_price());
-        Glide.with(context).load(list.get(position).getList_pic_url());
+        viewHolder.tv_price_recommend.setText(list.get(position).getRetail_price()+"");
+        Glide.with(context).load(list.get(position).getList_pic_url()).into(viewHolder.iv_firstpublish);
     }
 
     @Override
     public int getItemCount() {
         return list.size();
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView iv_firstpublish;
         private TextView tv_name_recommend;

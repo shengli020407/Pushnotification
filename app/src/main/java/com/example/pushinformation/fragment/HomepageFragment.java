@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
+import com.alibaba.android.vlayout.LayoutManagerHelper;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
@@ -22,6 +23,7 @@ import com.example.pushinformation.R;
 import com.example.pushinformation.adapter.HomeFragmentAdapter;
 import com.example.pushinformation.adapter.HomeGridAdapter;
 import com.example.pushinformation.adapter.HomebrandAdapter;
+import com.example.pushinformation.adapter.HomechoicenessAdapter;
 import com.example.pushinformation.adapter.HomefirstpublishAdapter;
 import com.example.pushinformation.base.BaseFragment;
 import com.example.pushinformation.base.BasePresenter;
@@ -45,6 +47,8 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
     private HomefirstpublishAdapter homefirstpublishAdapter;
     private ArrayList<HomeFragmentBean.DataDTO.HotGoodsListDTO> hotGoodsListDTOS;
     private HomerecommendAdapter homerecommendAdapter;
+    private ArrayList<HomeFragmentBean.DataDTO.TopicListDTO> topicListDTOS;
+    private HomechoicenessAdapter homechoicenessAdapter;
 
     protected void initView(View view) {
         rcy_home = view.findViewById(R.id.rcy_home);
@@ -53,6 +57,7 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         brandListDTOS = new ArrayList<>();
         newGoodsListDTOS = new ArrayList<>();
         hotGoodsListDTOS = new ArrayList<>();
+        topicListDTOS = new ArrayList<>();
 
         VirtualLayoutManager virtualLayoutManager = new VirtualLayoutManager(getContext());
         RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
@@ -66,39 +71,40 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         gridLayoutHelper.setItemCount(5);
         gridLayoutHelper.setPadding(10,10,10,10);
         gridLayoutHelper.setMargin(10,10,10,10);
-        gridLayoutHelper.setAspectRatio(5);
         gridLayoutHelper.setWeights(new float[]{20,20,20,20});
-        gridLayoutHelper.setVGap(20);
-        gridLayoutHelper.setHGap(20);
-        gridLayoutHelper.setAutoExpand(false);
         gridLayoutHelper.setSpanCount(5);
         //品牌制造商直供
         GridLayoutHelper helper = new GridLayoutHelper(4);
         helper.setItemCount(4);
-        helper.setMargin(30,0,30,30);
+        helper.setPadding(0,0,0,0);
+        helper.setMargin(0,0,0,0);
         helper.setSpanCount(2);
         //周一周四新品首发
         GridLayoutHelper firstpublishgridLayoutHelper = new GridLayoutHelper(4);
         firstpublishgridLayoutHelper.setItemCount(4);
-        firstpublishgridLayoutHelper.setMargin(30,0,30,30);
         firstpublishgridLayoutHelper.setSpanCount(2);
         //人气推荐
         GridLayoutHelper recommendhelper = new GridLayoutHelper(4);
         recommendhelper.setItemCount(4);
-        recommendhelper.setMargin(30,0,30,30);
         recommendhelper.setSpanCount(1);
+        //专题精选
+        GridLayoutHelper choiceness = new GridLayoutHelper(3);
+        choiceness.setItemCount(4);
 
         homeFragmentAdapter = new HomeFragmentAdapter(getContext(), singleLayoutHelper, bannerDTOS);
         homeGridAdapter = new HomeGridAdapter(getContext(), channelDTOS, gridLayoutHelper);
         homebrandAdapter = new HomebrandAdapter(getContext(), brandListDTOS, helper);
         homefirstpublishAdapter = new HomefirstpublishAdapter(getContext(), newGoodsListDTOS, firstpublishgridLayoutHelper);
         homerecommendAdapter = new HomerecommendAdapter(getContext(), hotGoodsListDTOS, recommendhelper);
+        homechoicenessAdapter = new HomechoicenessAdapter(getContext(), topicListDTOS, choiceness);
+
         adapter = new DelegateAdapter(virtualLayoutManager, true);
         adapter.addAdapter(homeFragmentAdapter);
         adapter.addAdapter(homeGridAdapter);
         adapter.addAdapter(homebrandAdapter);
         adapter.addAdapter(homefirstpublishAdapter);
         adapter.addAdapter(homerecommendAdapter);
+        adapter.addAdapter(homechoicenessAdapter);
         rcy_home.setLayoutManager(virtualLayoutManager);
         rcy_home.setAdapter(adapter);
 
@@ -127,11 +133,14 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         brandListDTOS.addAll(bean.getData().getBrandList());
         newGoodsListDTOS.addAll(bean.getData().getNewGoodsList());
         hotGoodsListDTOS.addAll(bean.getData().getHotGoodsList());
+        topicListDTOS.addAll(bean.getData().getTopicList());
+
         homeFragmentAdapter.notifyDataSetChanged();
         homeGridAdapter.notifyDataSetChanged();
         homebrandAdapter.notifyDataSetChanged();
         homefirstpublishAdapter.notifyDataSetChanged();
         homerecommendAdapter.notifyDataSetChanged();
+        homechoicenessAdapter.notifyDataSetChanged();
     }
 
     @Override
