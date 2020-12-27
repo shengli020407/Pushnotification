@@ -25,6 +25,7 @@ import com.example.pushinformation.adapter.HomeGridAdapter;
 import com.example.pushinformation.adapter.HomebrandAdapter;
 import com.example.pushinformation.adapter.HomechoicenessAdapter;
 import com.example.pushinformation.adapter.HomefirstpublishAdapter;
+import com.example.pushinformation.adapter.HomelivingathomeAdapter;
 import com.example.pushinformation.base.BaseFragment;
 import com.example.pushinformation.base.BasePresenter;
 import com.example.pushinformation.bean.HomeFragmentBean;
@@ -49,6 +50,8 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
     private HomerecommendAdapter homerecommendAdapter;
     private ArrayList<HomeFragmentBean.DataDTO.TopicListDTO> topicListDTOS;
     private HomechoicenessAdapter homechoicenessAdapter;
+    private ArrayList<HomeFragmentBean.DataDTO.CategoryListDTO> categoryListDTOS;
+    private HomelivingathomeAdapter homelivingathomeAdapter;
 
     protected void initView(View view) {
         rcy_home = view.findViewById(R.id.rcy_home);
@@ -58,6 +61,8 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         newGoodsListDTOS = new ArrayList<>();
         hotGoodsListDTOS = new ArrayList<>();
         topicListDTOS = new ArrayList<>();
+        categoryListDTOS = new ArrayList<>();
+
 
         VirtualLayoutManager virtualLayoutManager = new VirtualLayoutManager(getContext());
         RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
@@ -90,6 +95,10 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         //专题精选
         GridLayoutHelper choiceness = new GridLayoutHelper(3);
         choiceness.setItemCount(4);
+        //居家
+        GridLayoutHelper livingathome = new GridLayoutHelper(5);
+        livingathome.setItemCount(9);
+        livingathome.setSpanCount(2);
 
         homeFragmentAdapter = new HomeFragmentAdapter(getContext(), singleLayoutHelper, bannerDTOS);
         homeGridAdapter = new HomeGridAdapter(getContext(), channelDTOS, gridLayoutHelper);
@@ -97,6 +106,7 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         homefirstpublishAdapter = new HomefirstpublishAdapter(getContext(), newGoodsListDTOS, firstpublishgridLayoutHelper);
         homerecommendAdapter = new HomerecommendAdapter(getContext(), hotGoodsListDTOS, recommendhelper);
         homechoicenessAdapter = new HomechoicenessAdapter(getContext(), topicListDTOS, choiceness);
+        homelivingathomeAdapter = new HomelivingathomeAdapter(getContext(), categoryListDTOS, livingathome);
 
         adapter = new DelegateAdapter(virtualLayoutManager, true);
         adapter.addAdapter(homeFragmentAdapter);
@@ -105,6 +115,7 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         adapter.addAdapter(homefirstpublishAdapter);
         adapter.addAdapter(homerecommendAdapter);
         adapter.addAdapter(homechoicenessAdapter);
+        adapter.addAdapter(homelivingathomeAdapter);
         rcy_home.setLayoutManager(virtualLayoutManager);
         rcy_home.setAdapter(adapter);
 
@@ -134,6 +145,8 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         newGoodsListDTOS.addAll(bean.getData().getNewGoodsList());
         hotGoodsListDTOS.addAll(bean.getData().getHotGoodsList());
         topicListDTOS.addAll(bean.getData().getTopicList());
+        categoryListDTOS.addAll(bean.getData().getCategoryList());
+
 
         homeFragmentAdapter.notifyDataSetChanged();
         homeGridAdapter.notifyDataSetChanged();
@@ -141,6 +154,7 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         homefirstpublishAdapter.notifyDataSetChanged();
         homerecommendAdapter.notifyDataSetChanged();
         homechoicenessAdapter.notifyDataSetChanged();
+        homelivingathomeAdapter.notifyDataSetChanged();
     }
 
     @Override

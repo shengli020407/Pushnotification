@@ -19,13 +19,13 @@ import com.example.pushinformation.bean.HomeFragmentBean;
 
 import java.util.ArrayList;
 
-public class HomechoicenessAdapter extends DelegateAdapter.Adapter{
+public class HomelivingathomeAdapter extends DelegateAdapter.Adapter{
 
     private Context context;
-    private ArrayList<HomeFragmentBean.DataDTO.TopicListDTO> list;
+    private ArrayList<HomeFragmentBean.DataDTO.CategoryListDTO> list;
     private GridLayoutHelper layoutHelper;
 
-    public HomechoicenessAdapter(Context context, ArrayList<HomeFragmentBean.DataDTO.TopicListDTO> list, GridLayoutHelper layoutHelper) {
+    public HomelivingathomeAdapter(Context context, ArrayList<HomeFragmentBean.DataDTO.CategoryListDTO> list, GridLayoutHelper layoutHelper) {
         this.context = context;
         this.list = list;
         this.layoutHelper = layoutHelper;
@@ -39,17 +39,16 @@ public class HomechoicenessAdapter extends DelegateAdapter.Adapter{
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_choiceness_home,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_livingathome_home,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        HomechoicenessAdapter.ViewHolder viewHolder= (HomechoicenessAdapter.ViewHolder) holder;
-        viewHolder.tv_title_choiceness.setText(list.get(position).getTitle());
-        viewHolder.tv_subtitle_choiceness.setText(list.get(position).getSubtitle());
-        viewHolder.tv_price_choiceness.setText(list.get(position).getPrice_info()+"");
-        Glide.with(context).load(list.get(position).getScene_pic_url()).into(viewHolder.iv_choiceness);
+        HomelivingathomeAdapter.ViewHolder viewHolder= (HomelivingathomeAdapter.ViewHolder) holder;
+        viewHolder.tv_name_livingathome.setText(list.get(position).getGoodsList().get(position).getName());
+        viewHolder.tv_price_livingathome.setText(list.get(position).getGoodsList().get(position).getRetail_price()+"");
+        Glide.with(context).load(list.get(position).getGoodsList().get(position).getList_pic_url()).into(viewHolder.iv_livingathome);
     }
 
     @Override
@@ -58,17 +57,15 @@ public class HomechoicenessAdapter extends DelegateAdapter.Adapter{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView iv_choiceness;
-        private TextView tv_title_choiceness;
-        private TextView tv_subtitle_choiceness;
-        private TextView tv_price_choiceness;
+        private ImageView iv_livingathome;
+        private TextView tv_name_livingathome;
+        private TextView tv_price_livingathome;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            iv_choiceness = itemView.findViewById(R.id.iv_choiceness);
-            tv_title_choiceness = itemView.findViewById(R.id.tv_title_choiceness);
-            tv_subtitle_choiceness = itemView.findViewById(R.id.tv_subtitle_choiceness);
-            tv_price_choiceness = itemView.findViewById(R.id.tv_price_choiceness);
+            iv_livingathome = itemView.findViewById(R.id.iv_livingathome);
+            tv_name_livingathome = itemView.findViewById(R.id.tv_name_livingathome);
+            tv_price_livingathome = itemView.findViewById(R.id.tv_price_livingathome);
         }
     }
 }
