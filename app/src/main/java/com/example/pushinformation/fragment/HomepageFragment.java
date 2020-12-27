@@ -1,36 +1,27 @@
 package com.example.pushinformation.fragment;
 
-import android.graphics.Color;
-import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
-import com.alibaba.android.vlayout.LayoutManagerHelper;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
-import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.example.pushinformation.HomerecommendAdapter;
 import com.example.pushinformation.R;
+import com.example.pushinformation.adapter.HomeDirectsupplyAdapter;
 import com.example.pushinformation.adapter.HomeFragmentAdapter;
 import com.example.pushinformation.adapter.HomeGridAdapter;
-import com.example.pushinformation.adapter.HomeGridAdapter;
+import com.example.pushinformation.adapter.HomeNewproductAdapter;
+import com.example.pushinformation.adapter.HomePopularityAdapter;
+import com.example.pushinformation.adapter.HomeSpecialAdapter;
 import com.example.pushinformation.adapter.HomebrandAdapter;
 import com.example.pushinformation.adapter.HomechoicenessAdapter;
 import com.example.pushinformation.adapter.HomefirstpublishAdapter;
-import com.example.pushinformation.adapter.HomekitchenwareAdapter;
 import com.example.pushinformation.adapter.HomelivingathomeAdapter;
-import com.example.pushinformation.adapter.TopAdapter;
 import com.example.pushinformation.base.BaseFragment;
-import com.example.pushinformation.base.BasePresenter;
 import com.example.pushinformation.bean.HomeFragmentBean;
 import com.example.pushinformation.contract.HomeFragmentContract;
 import com.example.pushinformation.presenter.ImpHomePresenter;
@@ -55,6 +46,10 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
     private  HomechoicenessAdapter homechoicenessAdapter;
     private ArrayList<HomeFragmentBean.DataDTO.CategoryListDTO> categoryListDTOS;
     private HomelivingathomeAdapter homelivingathomeAdapter;
+    private HomeDirectsupplyAdapter homeDirectsupplyAdapter;
+    private HomeNewproductAdapter homeNewproductAdapter;
+    private HomePopularityAdapter homePopularityAdapter;
+    private HomeSpecialAdapter homeSpecialAdapter;
 
     protected void initView(View view) {
         rcy_home = view.findViewById(R.id.rcy_home);
@@ -64,16 +59,52 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         initBanner();
         //轮播图下边
         initInferior();
-        //品牌制造商直供
+        //品牌制造商直供 文字
+        initDirectsupply();
+        //品牌制造商直供 数据
         initBrand();
-        //周一周四新品首发
+        //周一周四新品首发 文字
+        initNewproduct();
+        //周一周四新品首发 数据
         initFirstpublishgrid();
-        //人气推荐
+        //人气推荐 文字
+        initPopularity();
+        //人气推荐 数据
         initRecommendhelper();
-        //专题精选
+        //专题精选 文字
+        initSpecial();
+        //专题精选 数据
         initSinhelper();
         //居家
         initLivingathome();
+    }
+
+    private void initSpecial() {
+        SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
+        singleLayoutHelper.setItemCount(1);
+        homeSpecialAdapter = new HomeSpecialAdapter(getActivity(), singleLayoutHelper);
+        adapter.addAdapter(homeSpecialAdapter);
+    }
+
+    private void initPopularity() {
+        SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
+        singleLayoutHelper.setItemCount(1);
+        homePopularityAdapter = new HomePopularityAdapter(getActivity(), singleLayoutHelper);
+        adapter.addAdapter(homePopularityAdapter);
+    }
+
+    private void initNewproduct() {
+        SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
+        singleLayoutHelper.setItemCount(1);
+        homeNewproductAdapter = new HomeNewproductAdapter(getActivity(), singleLayoutHelper);
+        adapter.addAdapter(homeNewproductAdapter);
+    }
+
+    private void initDirectsupply() {
+        SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
+        singleLayoutHelper.setItemCount(1);
+        homeDirectsupplyAdapter = new HomeDirectsupplyAdapter(getActivity(), singleLayoutHelper);
+        adapter.addAdapter(homeDirectsupplyAdapter);
     }
 
     private void initVlayout() {
@@ -177,6 +208,7 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
 
     @Override
     public void onSuccess(HomeFragmentBean bean) {
+        //添加数据
         bannerDTOS.addAll(bean.getData().getBanner());
         channelDTOS.addAll(bean.getData().getChannel());
         brandListDTOS.addAll(bean.getData().getBrandList());
@@ -184,14 +216,18 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         hotGoodsListDTOS.addAll(bean.getData().getHotGoodsList());
         topicListDTOS.addAll(bean.getData().getTopicList());
         categoryListDTOS.addAll(bean.getData().getCategoryList());
-
+        //适配器刷新
         homeFragmentAdapter.notifyDataSetChanged();
+        homeDirectsupplyAdapter.notifyDataSetChanged();
         homeGridAdapter.notifyDataSetChanged();
         homebrandAdapter.notifyDataSetChanged();
         homefirstpublishAdapter.notifyDataSetChanged();
         homerecommendAdapter.notifyDataSetChanged();
         homechoicenessAdapter.notifyDataSetChanged();
         homelivingathomeAdapter.notifyDataSetChanged();
+        homeNewproductAdapter.notifyDataSetChanged();
+        homePopularityAdapter.notifyDataSetChanged();
+        homeSpecialAdapter.notifyDataSetChanged();
     }
 
     @Override

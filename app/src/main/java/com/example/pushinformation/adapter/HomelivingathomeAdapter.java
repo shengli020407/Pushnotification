@@ -52,6 +52,7 @@ public class HomelivingathomeAdapter extends DelegateAdapter.Adapter{
 
         HomelivingathomeAdapter.ViewHolder viewHolder= (HomelivingathomeAdapter.ViewHolder) holder;
         viewHolder.tv_title.setText(list.get(position).getName());
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
         HomelivingathomeChildAdapter homelivingathomeChildAdapter = new HomelivingathomeChildAdapter(context,goodsList);
         viewHolder.rec.setLayoutManager(gridLayoutManager);

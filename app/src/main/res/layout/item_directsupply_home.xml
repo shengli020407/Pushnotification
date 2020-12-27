@@ -5,16 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_directsupply"
         android:textColor="#050505"
+        android:textSize="20sp"
+        android:layout_margin="20dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rec"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
