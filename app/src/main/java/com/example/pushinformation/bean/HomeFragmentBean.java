@@ -333,7 +333,7 @@ public class HomeFragmentBean {
             private Integer id;
             private String name;
             private String list_pic_url;
-            private Integer retail_price;
+            private String retail_price;
             private String goods_brief;
 
             public Integer getId() {
@@ -360,11 +360,11 @@ public class HomeFragmentBean {
                 this.list_pic_url = list_pic_url;
             }
 
-            public Integer getRetail_price() {
+            public String getRetail_price() {
                 return retail_price;
             }
 
-            public void setRetail_price(Integer retail_price) {
+            public void setRetail_price(String retail_price) {
                 this.retail_price = retail_price;
             }
 

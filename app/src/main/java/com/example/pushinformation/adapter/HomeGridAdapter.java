@@ -45,7 +45,7 @@ public class HomeGridAdapter extends DelegateAdapter.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ViewHolder viewHolder = (ViewHolder) holder;
+        HomeGridAdapter.ViewHolder viewHolder = (HomeGridAdapter.ViewHolder) holder;
         viewHolder.tvNameGrid.setText(list.get(position).getName());
         Glide.with(context).load(list.get(position).getIcon_url()).into(viewHolder.ivGrid);
     }

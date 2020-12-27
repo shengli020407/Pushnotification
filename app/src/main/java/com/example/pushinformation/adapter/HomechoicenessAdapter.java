@@ -8,11 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
+import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.bumptech.glide.Glide;
 import com.example.pushinformation.R;
 import com.example.pushinformation.bean.HomeFragmentBean;
@@ -23,9 +25,9 @@ public class HomechoicenessAdapter extends DelegateAdapter.Adapter{
 
     private Context context;
     private ArrayList<HomeFragmentBean.DataDTO.TopicListDTO> list;
-    private GridLayoutHelper layoutHelper;
+    private SingleLayoutHelper layoutHelper;
 
-    public HomechoicenessAdapter(Context context, ArrayList<HomeFragmentBean.DataDTO.TopicListDTO> list, GridLayoutHelper layoutHelper) {
+    public HomechoicenessAdapter(Context context, ArrayList<HomeFragmentBean.DataDTO.TopicListDTO> list, SingleLayoutHelper layoutHelper) {
         this.context = context;
         this.list = list;
         this.layoutHelper = layoutHelper;
@@ -46,29 +48,23 @@ public class HomechoicenessAdapter extends DelegateAdapter.Adapter{
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         HomechoicenessAdapter.ViewHolder viewHolder= (HomechoicenessAdapter.ViewHolder) holder;
-        viewHolder.tv_title_choiceness.setText(list.get(position).getTitle());
-        viewHolder.tv_subtitle_choiceness.setText(list.get(position).getSubtitle());
-        viewHolder.tv_price_choiceness.setText(list.get(position).getPrice_info()+"");
-        Glide.with(context).load(list.get(position).getScene_pic_url()).into(viewHolder.iv_choiceness);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        viewHolder.rec.setLayoutManager(linearLayoutManager);
+        HomeChildAdapter homeChildAdapter = new HomeChildAdapter(context,list);
+        viewHolder.rec.setAdapter(homeChildAdapter);
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return 1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView iv_choiceness;
-        private TextView tv_title_choiceness;
-        private TextView tv_subtitle_choiceness;
-        private TextView tv_price_choiceness;
-
+        private RecyclerView rec;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            iv_choiceness = itemView.findViewById(R.id.iv_choiceness);
-            tv_title_choiceness = itemView.findViewById(R.id.tv_title_choiceness);
-            tv_subtitle_choiceness = itemView.findViewById(R.id.tv_subtitle_choiceness);
-            tv_price_choiceness = itemView.findViewById(R.id.tv_price_choiceness);
+            rec = itemView.findViewById(R.id.rec);
         }
     }
 }

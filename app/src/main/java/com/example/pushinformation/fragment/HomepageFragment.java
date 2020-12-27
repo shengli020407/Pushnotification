@@ -22,10 +22,13 @@ import com.example.pushinformation.HomerecommendAdapter;
 import com.example.pushinformation.R;
 import com.example.pushinformation.adapter.HomeFragmentAdapter;
 import com.example.pushinformation.adapter.HomeGridAdapter;
+import com.example.pushinformation.adapter.HomeGridAdapter;
 import com.example.pushinformation.adapter.HomebrandAdapter;
 import com.example.pushinformation.adapter.HomechoicenessAdapter;
 import com.example.pushinformation.adapter.HomefirstpublishAdapter;
+import com.example.pushinformation.adapter.HomekitchenwareAdapter;
 import com.example.pushinformation.adapter.HomelivingathomeAdapter;
+import com.example.pushinformation.adapter.TopAdapter;
 import com.example.pushinformation.base.BaseFragment;
 import com.example.pushinformation.base.BasePresenter;
 import com.example.pushinformation.bean.HomeFragmentBean;
@@ -49,76 +52,111 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
     private ArrayList<HomeFragmentBean.DataDTO.HotGoodsListDTO> hotGoodsListDTOS;
     private HomerecommendAdapter homerecommendAdapter;
     private ArrayList<HomeFragmentBean.DataDTO.TopicListDTO> topicListDTOS;
-    private HomechoicenessAdapter homechoicenessAdapter;
+    private  HomechoicenessAdapter homechoicenessAdapter;
     private ArrayList<HomeFragmentBean.DataDTO.CategoryListDTO> categoryListDTOS;
     private HomelivingathomeAdapter homelivingathomeAdapter;
 
     protected void initView(View view) {
         rcy_home = view.findViewById(R.id.rcy_home);
-        bannerDTOS = new ArrayList<>();
-        channelDTOS = new ArrayList<>();
-        brandListDTOS = new ArrayList<>();
-        newGoodsListDTOS = new ArrayList<>();
-        hotGoodsListDTOS = new ArrayList<>();
-        topicListDTOS = new ArrayList<>();
-        categoryListDTOS = new ArrayList<>();
+        //VLayout
+        initVlayout();
+        //轮播图
+        initBanner();
+        //轮播图下边
+        initInferior();
+        //品牌制造商直供
+        initBrand();
+        //周一周四新品首发
+        initFirstpublishgrid();
+        //人气推荐
+        initRecommendhelper();
+        //专题精选
+        initSinhelper();
+        //居家
+        initLivingathome();
+    }
 
-
+    private void initVlayout() {
         VirtualLayoutManager virtualLayoutManager = new VirtualLayoutManager(getContext());
         RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
         rcy_home.setRecycledViewPool(viewPool);
         viewPool.setMaxRecycledViews(0, 100);
-        //轮播图
+        adapter = new DelegateAdapter(virtualLayoutManager, false);
+        rcy_home.setLayoutManager(virtualLayoutManager);
+        rcy_home.setAdapter(adapter);
+    }
+
+    private void initLivingathome() {
+        //居家
+        categoryListDTOS = new ArrayList<>();
+        SingleLayoutHelper livingathome = new SingleLayoutHelper();
+        livingathome.setItemCount(2);
+        homelivingathomeAdapter = new HomelivingathomeAdapter(getContext(), categoryListDTOS, livingathome);
+        adapter.addAdapter(homelivingathomeAdapter);
+    }
+
+    private void initSinhelper() {
+        //专题精选
+        topicListDTOS = new ArrayList<>();
         SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
         singleLayoutHelper.setItemCount(1);
+        homechoicenessAdapter = new HomechoicenessAdapter(getContext(),topicListDTOS,singleLayoutHelper);
+        adapter.addAdapter(homechoicenessAdapter);
+    }
+
+    private void initRecommendhelper() {
+        //人气推荐
+        hotGoodsListDTOS = new ArrayList<>();
+        GridLayoutHelper recommendhelper = new GridLayoutHelper(4);
+        recommendhelper.setItemCount(4);
+        recommendhelper.setSpanCount(1);
+        homerecommendAdapter = new HomerecommendAdapter(getContext(), hotGoodsListDTOS, recommendhelper);
+        adapter.addAdapter(homerecommendAdapter);
+    }
+
+    private void initFirstpublishgrid() {
+        //周一周四新品首发
+        newGoodsListDTOS = new ArrayList<>();
+        GridLayoutHelper firstpublishgridLayoutHelper = new GridLayoutHelper(4);
+        firstpublishgridLayoutHelper.setItemCount(4);
+        firstpublishgridLayoutHelper.setSpanCount(2);
+        homefirstpublishAdapter = new HomefirstpublishAdapter(getContext(), newGoodsListDTOS, firstpublishgridLayoutHelper);
+        adapter.addAdapter(homefirstpublishAdapter);
+    }
+
+    private void initBrand() {
+        //品牌制造商直供
+        brandListDTOS = new ArrayList<>();
+        GridLayoutHelper helper = new GridLayoutHelper(4);
+        helper.setItemCount(4);
+        helper.setPadding(0,0,0,0);
+        helper.setMargin(0,0,0,0);
+        helper.setSpanCount(2);
+        homebrandAdapter = new HomebrandAdapter(getContext(), brandListDTOS, helper);
+        adapter.addAdapter(homebrandAdapter);
+    }
+
+    private void initInferior() {
         //轮播图下边的
+        channelDTOS = new ArrayList<>();
         GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(5);
         gridLayoutHelper.setItemCount(5);
         gridLayoutHelper.setPadding(10,10,10,10);
         gridLayoutHelper.setMargin(10,10,10,10);
         gridLayoutHelper.setWeights(new float[]{20,20,20,20});
         gridLayoutHelper.setSpanCount(5);
-        //品牌制造商直供
-        GridLayoutHelper helper = new GridLayoutHelper(4);
-        helper.setItemCount(4);
-        helper.setPadding(0,0,0,0);
-        helper.setMargin(0,0,0,0);
-        helper.setSpanCount(2);
-        //周一周四新品首发
-        GridLayoutHelper firstpublishgridLayoutHelper = new GridLayoutHelper(4);
-        firstpublishgridLayoutHelper.setItemCount(4);
-        firstpublishgridLayoutHelper.setSpanCount(2);
-        //人气推荐
-        GridLayoutHelper recommendhelper = new GridLayoutHelper(4);
-        recommendhelper.setItemCount(4);
-        recommendhelper.setSpanCount(1);
-        //专题精选
-        GridLayoutHelper choiceness = new GridLayoutHelper(3);
-        choiceness.setItemCount(4);
-        //居家
-        GridLayoutHelper livingathome = new GridLayoutHelper(5);
-        livingathome.setItemCount(9);
-        livingathome.setSpanCount(2);
-
-        homeFragmentAdapter = new HomeFragmentAdapter(getContext(), singleLayoutHelper, bannerDTOS);
         homeGridAdapter = new HomeGridAdapter(getContext(), channelDTOS, gridLayoutHelper);
-        homebrandAdapter = new HomebrandAdapter(getContext(), brandListDTOS, helper);
-        homefirstpublishAdapter = new HomefirstpublishAdapter(getContext(), newGoodsListDTOS, firstpublishgridLayoutHelper);
-        homerecommendAdapter = new HomerecommendAdapter(getContext(), hotGoodsListDTOS, recommendhelper);
-        homechoicenessAdapter = new HomechoicenessAdapter(getContext(), topicListDTOS, choiceness);
-        homelivingathomeAdapter = new HomelivingathomeAdapter(getContext(), categoryListDTOS, livingathome);
-
-        adapter = new DelegateAdapter(virtualLayoutManager, true);
-        adapter.addAdapter(homeFragmentAdapter);
         adapter.addAdapter(homeGridAdapter);
-        adapter.addAdapter(homebrandAdapter);
-        adapter.addAdapter(homefirstpublishAdapter);
-        adapter.addAdapter(homerecommendAdapter);
-        adapter.addAdapter(homechoicenessAdapter);
-        adapter.addAdapter(homelivingathomeAdapter);
-        rcy_home.setLayoutManager(virtualLayoutManager);
-        rcy_home.setAdapter(adapter);
 
+    }
+
+    private void initBanner() {
+        //轮播图
+        bannerDTOS = new ArrayList<>();
+        SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
+        singleLayoutHelper.setItemCount(1);
+        homeFragmentAdapter = new HomeFragmentAdapter(getContext(), singleLayoutHelper, bannerDTOS);
+        adapter.addAdapter(homeFragmentAdapter);
     }
 
     @Override
@@ -146,7 +184,6 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
         hotGoodsListDTOS.addAll(bean.getData().getHotGoodsList());
         topicListDTOS.addAll(bean.getData().getTopicList());
         categoryListDTOS.addAll(bean.getData().getCategoryList());
-
 
         homeFragmentAdapter.notifyDataSetChanged();
         homeGridAdapter.notifyDataSetChanged();

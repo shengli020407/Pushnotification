@@ -4,29 +4,9 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/iv_choiceness"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rec"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="160dp"/>
-    <TextView
-        android:id="@+id/tv_title_choiceness"
-        android:textColor="#050505"
-        app:layout_constraintLeft_toLeftOf="@id/iv_choiceness"
-        app:layout_constraintTop_toBottomOf="@id/iv_choiceness"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:textColor="#FD1403"
-        android:id="@+id/tv_price_choiceness"
-        app:layout_constraintTop_toBottomOf="@id/iv_choiceness"
-        app:layout_constraintLeft_toRightOf="@id/tv_title_choiceness"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/tv_subtitle_choiceness"
-        app:layout_constraintLeft_toLeftOf="@id/tv_title_choiceness"
-        app:layout_constraintTop_toBottomOf="@id/tv_title_choiceness"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
