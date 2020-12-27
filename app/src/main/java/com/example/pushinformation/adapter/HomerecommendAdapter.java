@@ -1,4 +1,4 @@
-package com.example.pushinformation;
+package com.example.pushinformation.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.bumptech.glide.Glide;
+import com.example.pushinformation.R;
 import com.example.pushinformation.bean.HomeFragmentBean;
 
 import java.util.ArrayList;

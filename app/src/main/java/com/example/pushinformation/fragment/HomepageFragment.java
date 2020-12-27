@@ -9,7 +9,7 @@ import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
-import com.example.pushinformation.HomerecommendAdapter;
+import com.example.pushinformation.adapter.HomerecommendAdapter;
 import com.example.pushinformation.R;
 import com.example.pushinformation.adapter.HomeDirectsupplyAdapter;
 import com.example.pushinformation.adapter.HomeFragmentAdapter;
