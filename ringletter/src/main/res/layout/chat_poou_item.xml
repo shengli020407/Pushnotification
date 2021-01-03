@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#E6E4E4"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ImageView
+        android:id="@+id/chat_popu_album"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_select"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+    <TextView
+        android:text="相册"
+        android:textSize="18sp"
+        android:padding="10dp"
+        android:textColor="#050505"
+        android:id="@+id/chat_popu_album_name"
+        app:layout_constraintTop_toBottomOf="@id/chat_popu_album"
+        app:layout_constraintLeft_toLeftOf="@id/chat_popu_album"
+        app:layout_constraintRight_toRightOf="@id/chat_popu_album"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

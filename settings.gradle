@@ -1,2 +1,3 @@
+include ':ringletter'
 include ':app'
 rootProject.name = "Pushinformation"

@@ -232,6 +232,6 @@ public class HomepageFragment extends BaseFragment<ImpHomePresenter> implements 
 
     @Override
     public void onFail(String error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 }
